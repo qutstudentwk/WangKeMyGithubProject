@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ORM.mapper.resultMapper.TblResultMapper" >
+  <resultMap id="BaseResultMap" type="com.ORM.model.resultModel.TblResult" >
+    <id column="result_id" property="resultId" jdbcType="INTEGER" />
+    <result column="result_name" property="resultName" jdbcType="VARCHAR" />
+    <result column="result_cost" property="resultCost" jdbcType="INTEGER" />
+    <result column="result_invest" property="resultInvest" jdbcType="INTEGER" />
+    <result column="result_value" property="resultValue" jdbcType="INTEGER" />
+    <result column="result_introduction" property="resultIntroduction" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="academy_id" property="academyId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    result_id, result_name, result_cost, result_invest, result_value, result_introduction, 
+    area_id, user_id, academy_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ORM.model.resultModel.TblResultExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_result
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_result
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ORM.model.resultModel.TblResultExample" >
+    delete from tbl_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ORM.model.resultModel.TblResult" >
+    insert into tbl_result (result_id, result_name, result_cost, 
+      result_invest, result_value, result_introduction, 
+      area_id, user_id, academy_id
+      )
+    values (#{resultId,jdbcType=INTEGER}, #{resultName,jdbcType=VARCHAR}, #{resultCost,jdbcType=INTEGER}, 
+      #{resultInvest,jdbcType=INTEGER}, #{resultValue,jdbcType=INTEGER}, #{resultIntroduction,jdbcType=VARCHAR}, 
+      #{areaId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{academyId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ORM.model.resultModel.TblResult" >
+    insert into tbl_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        result_id,
+      </if>
+      <if test="resultName != null" >
+        result_name,
+      </if>
+      <if test="resultCost != null" >
+        result_cost,
+      </if>
+      <if test="resultInvest != null" >
+        result_invest,
+      </if>
+      <if test="resultValue != null" >
+        result_value,
+      </if>
+      <if test="resultIntroduction != null" >
+        result_introduction,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="academyId != null" >
+        academy_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        #{resultId,jdbcType=INTEGER},
+      </if>
+      <if test="resultName != null" >
+        #{resultName,jdbcType=VARCHAR},
+      </if>
+      <if test="resultCost != null" >
+        #{resultCost,jdbcType=INTEGER},
+      </if>
+      <if test="resultInvest != null" >
+        #{resultInvest,jdbcType=INTEGER},
+      </if>
+      <if test="resultValue != null" >
+        #{resultValue,jdbcType=INTEGER},
+      </if>
+      <if test="resultIntroduction != null" >
+        #{resultIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="academyId != null" >
+        #{academyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ORM.model.resultModel.TblResultExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_result
+    <set >
+      <if test="record.resultId != null" >
+        result_id = #{record.resultId,jdbcType=INTEGER},
+      </if>
+      <if test="record.resultName != null" >
+        result_name = #{record.resultName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resultCost != null" >
+        result_cost = #{record.resultCost,jdbcType=INTEGER},
+      </if>
+      <if test="record.resultInvest != null" >
+        result_invest = #{record.resultInvest,jdbcType=INTEGER},
+      </if>
+      <if test="record.resultValue != null" >
+        result_value = #{record.resultValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.resultIntroduction != null" >
+        result_introduction = #{record.resultIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaId != null" >
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.academyId != null" >
+        academy_id = #{record.academyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_result
+    set result_id = #{record.resultId,jdbcType=INTEGER},
+      result_name = #{record.resultName,jdbcType=VARCHAR},
+      result_cost = #{record.resultCost,jdbcType=INTEGER},
+      result_invest = #{record.resultInvest,jdbcType=INTEGER},
+      result_value = #{record.resultValue,jdbcType=INTEGER},
+      result_introduction = #{record.resultIntroduction,jdbcType=VARCHAR},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      academy_id = #{record.academyId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ORM.model.resultModel.TblResult" >
+    update tbl_result
+    <set >
+      <if test="resultName != null" >
+        result_name = #{resultName,jdbcType=VARCHAR},
+      </if>
+      <if test="resultCost != null" >
+        result_cost = #{resultCost,jdbcType=INTEGER},
+      </if>
+      <if test="resultInvest != null" >
+        result_invest = #{resultInvest,jdbcType=INTEGER},
+      </if>
+      <if test="resultValue != null" >
+        result_value = #{resultValue,jdbcType=INTEGER},
+      </if>
+      <if test="resultIntroduction != null" >
+        result_introduction = #{resultIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="academyId != null" >
+        academy_id = #{academyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ORM.model.resultModel.TblResult" >
+    update tbl_result
+    set result_name = #{resultName,jdbcType=VARCHAR},
+      result_cost = #{resultCost,jdbcType=INTEGER},
+      result_invest = #{resultInvest,jdbcType=INTEGER},
+      result_value = #{resultValue,jdbcType=INTEGER},
+      result_introduction = #{resultIntroduction,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      academy_id = #{academyId,jdbcType=INTEGER}
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </update>
+
+  <!--自定义查询 -->
+  <select id="selectByResultName" parameterType="String" resultMap="BaseResultMap">
+  select * from tbl_result where result_name = #{resultname}
+</select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select * from tbl_result where user_id = #{userid}
+</select>
+  <select id="selectByAcademyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select * from tbl_result where academy_id = #{academyid}
+</select>
+  <select id="selectAllResult" resultMap="BaseResultMap">
+  select * from tbl_result
+</select>
+  <select id="selectSumValue" resultType="java.lang.Integer">
+  select SUM(result_value) from tbl_result
+</select>
+  <select id="selectAcademySumValue" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  select SUM(result_value) from tbl_result where academy_id = #{academyid}
+</select>
+</mapper>
